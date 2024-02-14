@@ -9,14 +9,14 @@ import rain_icon from "../../assets/rain.png";
 import snow_icon from "../../assets/snow.png";
 import wind_icon from "../../assets/wind.png";
 import { WeatherData } from "../../interface/weatherApi";
+const key = import.meta.env.VITE_KEY;
 
 const WeatherApp: React.FC = () => {
   const [wicon, setWicons] = React.useState<string>(cloud_icon);
-  const key = `a390c0c93e2b589d787363d24a92cff3`;
   const search = async () => {
     const element = document.getElementsByClassName(
       "cityinput"
-    ) as HTMLCollectionOf<HTMLInputElement>;
+    ) as HTMLCollectionOf<HTMLInputElement>; 
 
     if (element[0].value === "") {
       return 0;
@@ -37,9 +37,9 @@ const WeatherApp: React.FC = () => {
     const location = document.getElementsByClassName(
       "weather-location"
     ) as HTMLCollectionOf<HTMLInputElement>;
-    temperature[0].innerHTML = response.main.temp + "°c";
+    temperature[0].innerHTML = Math.floor(Number(response.main.temp)) + "°c";
     humidity[0].innerHTML = response.main.humidity + "%";
-    windspeed[0].innerHTML = response.wind.speed + "km/h";
+    windspeed[0].innerHTML = Math.floor(Number(response.wind.speed)) + "km/h";
     location[0].innerHTML = response.name;
 
     if (
