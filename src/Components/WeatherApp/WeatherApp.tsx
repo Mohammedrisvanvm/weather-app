@@ -11,6 +11,7 @@ import wind_icon from "../../assets/wind.png";
 import { WeatherData } from "../../interface/weatherApi";
 
 const WeatherApp: React.FC = () => {
+  const [wicon, setWicons] = React.useState<string>(cloud_icon);
   const key = `a390c0c93e2b589d787363d24a92cff3`;
   const search = async () => {
     const element = document.getElementsByClassName(
@@ -36,10 +37,49 @@ const WeatherApp: React.FC = () => {
     const location = document.getElementsByClassName(
       "weather-location"
     ) as HTMLCollectionOf<HTMLInputElement>;
-    temperature[0].innerHTML = response.main.temp;
-    humidity[0].innerHTML = response.main.humidity;
-    windspeed[0].innerHTML = response.wind.speed;
+    temperature[0].innerHTML = response.main.temp + "°c";
+    humidity[0].innerHTML = response.main.humidity + "%";
+    windspeed[0].innerHTML = response.wind.speed + "km/h";
     location[0].innerHTML = response.name;
+
+    if (
+      response.weather[0].icon === "01d" ||
+      response.weather[0].icon === "01n"
+    ) {
+      setWicons(clear_icon);
+    } else if (
+      response.weather[0].icon === "02d" ||
+      response.weather[0].icon === "02n"
+    ) {
+      setWicons(cloud_icon);
+    } else if (
+      response.weather[0].icon === "03d" ||
+      response.weather[0].icon === "03n"
+    ) {
+      setWicons(drizzle_icon);
+    } else if (
+      response.weather[0].icon === "04d" ||
+      response.weather[0].icon === "04n"
+    ) {
+      setWicons(drizzle_icon);
+    } else if (
+      response.weather[0].icon === "09d" ||
+      response.weather[0].icon === "09n"
+    ) {
+      setWicons(rain_icon);
+    } else if (
+      response.weather[0].icon === "10d" ||
+      response.weather[0].icon === "10n"
+    ) {
+      setWicons(rain_icon);
+    } else if (
+      response.weather[0].icon === "13d" ||
+      response.weather[0].icon === "13n"
+    ) {
+      setWicons(snow_icon);
+    } else {
+      setWicons(clear_icon);
+    }
   };
   return (
     <div className="container">
@@ -50,7 +90,7 @@ const WeatherApp: React.FC = () => {
         </div>
       </div>
       <div className="weather-image">
-        <img src={cloud_icon} alt="" />
+        <img src={wicon} alt="" />
       </div>
       <div className="weather-temp">24°c</div>
       <div className="weather-location">London</div>
