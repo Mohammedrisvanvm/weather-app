@@ -14,6 +14,9 @@ const key = import.meta.env.VITE_KEY;
 const WeatherApp: React.FC = () => {
   const [wicon, setWicons] = React.useState<string>(cloud_icon);
   const search = async () => {
+    try {
+      
+   
     const element = document.getElementsByClassName(
       "cityinput"
     ) as HTMLCollectionOf<HTMLInputElement>; 
@@ -80,6 +83,10 @@ const WeatherApp: React.FC = () => {
     } else {
       setWicons(clear_icon);
     }
+  } catch (error) {
+    console.log(error);
+      
+  }
   };
   return (
     <div className="container">
